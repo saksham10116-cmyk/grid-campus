@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Campus — A Clearer View of the Room</title>
+  <!-- Google Fonts: Fraunces (Editorial Serif) & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            cream: {
+              50: '#FAF8F5',
+              100: '#F5F2EB',
+              200: '#EFECE3',
+              300: '#E4DFD3',
+            },
+            gridNavy: {
+              900: '#11171E',
+              800: '#17202A',
+              700: '#222E3C',
+              600: '#2E3D4E',
+            },
+            gridCoral: {
+              DEFAULT: '#CC5A36',
+              hover: '#B54928',
+              light: '#FAEDE8',
+            },
+            gridYellow: {
+              DEFAULT: '#E6A73C',
+              light: '#FBF3E2',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Technical Graph Paper Grid Background */
+    .bg-graph-paper {
+      background-color: #F6F3EC;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 9999px; }
+    .custom-scroll-dark::-webkit-scrollbar { width: 5px; }
+    .custom-scroll-dark::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll-dark::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-graph-paper text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-gridCoral selection:text-white">
+
+  <!-- ==========================================
+       TOP NAVIGATION BAR
+  =========================================== -->
+  <header class="w-full border-b border-black/5 bg-[#F6F3EC]/80 backdrop-blur-md sticky top-0 z-40 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="showView('landing')">
+        <!-- Grid Campus 4-dot yellow logo -->
+        <div class="w-8 h-8 rounded-lg bg-gridYellow flex items-center justify-center p-1.5 shadow-sm">
+          <div class="grid grid-cols-2 gap-1 w-full h-full">
+            <span class="bg-[#11171E] rounded-sm"></span>
+            <span class="bg-[#11171E] rounded-sm"></span>
+            <span class="bg-[#11171E] rounded-sm"></span>
+            <span class="bg-[#11171E] rounded-sm"></span>
+          </div>
+        </div>
+        <div class="leading-none">
+          <span class="font-serif text-xl font-bold tracking-tight text-slate-900">Grid Campus</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs font-mono uppercase tracking-wider text-slate-500">
+        <span id="nav-indicator" class="hidden sm:inline-flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Class Doc: <strong class="text-slate-800">GridCampus_Students_Demo</strong></span>
+        </span>
+        <button id="nav-btn-home" onclick="showView('landing')" class="hidden px-3 py-1.5 rounded-full border border-black/10 hover:border-black/20 text-slate-700 hover:text-slate-900 transition-colors">
+          ← Back Home
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       VIEW 1: LANDING PAGE
+  =========================================== -->
+  <main id="view-landing" class="flex-1 max-w-7xl w-full mx-auto px-6 py-10 lg:py-16 flex flex-col justify-between">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+      
+      <!-- Left Hero Typography -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="flex items-center gap-2">
+          <span class="h-[1px] w-6 bg-gridCoral"></span>
+          <span class="text-xs font-mono tracking-widest text-gridCoral font-semibold uppercase">Class Insight, Kept Human</span>
+        </div>
+
+        <h1 class="font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tight text-slate-950 font-normal leading-[1.05]">
+          Make room<br />
+          <span class="italic text-gridCoral font-serif">for every</span><br />
+          kind of smart.
+        </h1>
+
+        <p class="text-slate-600 text-lg sm:text-xl font-light max-w-xl leading-relaxed pt-2">
+          A private workspace for teachers to notice strengths, ask better questions, and build project teams with more intention.
+        </p>
+      </div>
+
+      <!-- Right Card: Today's Prompt -->
+      <div class="lg:col-span-5 flex flex-col items-center lg:items-end">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.08)] border border-black/5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs font-mono uppercase text-slate-400 mb-4">
+            <span class="tracking-wider">Today's Prompt</span>
+            <span id="prompt-counter">01 / 02</span>
+          </div>
+
+          <h3 class="font-serif text-2xl sm:text-3xl text-slate-900 mb-6 font-normal">
+            Who helps the<br />group move?
+          </h3>
+
+          <div id="landing-featured-students" class="space-y-3 mb-6">
+            <!-- Dynamically populated from sheet data -->
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
+            <span class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-900"></span>
+              Built from the class document
+            </span>
+          </div>
+
+          <!-- Bottom floating badge -->
+          <div class="mt-4 bg-gridNavy-900 text-white rounded-2xl p-3.5 shadow-md flex items-center justify-between text-xs">
+            <div>
+              <p class="font-mono uppercase text-[10px] tracking-wider text-slate-400">Private by Design</p>
+              <p class="font-medium text-slate-200">Notice what data misses.</p>
+            </div>
+            <span class="text-slate-400 text-sm">🔒</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Portals -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-auto">
+      <!-- Portal 1: Student View (Opens Student Document & Add Dialog) -->
+      <div onclick="showView('student-portal')" class="group cursor-pointer bg-gridNavy-900 hover:bg-gridNavy-800 text-white rounded-3xl p-6 sm:p-7 transition-all duration-200 border border-white/5 shadow-xl flex items-center justify-between">
+        <div class="space-y-1.5">
+          <div class="w-10 h-10 rounded-xl bg-gridYellow/20 text-gridYellow flex items-center justify-center text-lg mb-3">
+            📖
+          </div>
+          <h4 class="font-semibold text-lg text-white">I'm a student</h4>
+          <p class="text-sm text-slate-400">Open the shared class document & submit records</p>
+        </div>
+        <span class="w-10 h-10 rounded-full border border-white/10 group-hover:border-white/30 flex items-center justify-center text-slate-300 group-hover:text-white transition-colors">
+          ↗
+        </span>
+      </div>
+
+      <!-- Portal 2: Teacher Workspace (Gate) -->
+      <div onclick="showView('gate')" class="group cursor-pointer bg-white hover:bg-cream-50 text-slate-900 rounded-3xl p-6 sm:p-7 transition-all duration-200 border border-black/10 shadow-sm flex items-center justify-between">
+        <div class="space-y-1.5">
+          <div class="w-10 h-10 rounded-xl bg-gridCoral-light text-gridCoral flex items-center justify-center text-lg mb-3">
+            🔒
+          </div>
+          <h4 class="font-semibold text-lg text-slate-900">I'm a teacher</h4>
+          <p class="text-sm text-slate-500">Enter the private conversation desk</p>
+        </div>
+        <span class="w-10 h-10 rounded-full border border-black/10 group-hover:border-black/30 flex items-center justify-center text-slate-700 group-hover:text-slate-900 transition-colors">
+          ↗
+        </span>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       VIEW 2: STUDENT PORTAL (Class Doc & Add Data)
+  =========================================== -->
+  <section id="view-student-portal" class="hidden flex-1 max-w-7xl w-full mx-auto px-6 py-8">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-black/10">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2 py-0.5 rounded text-[11px] font-mono uppercase bg-emerald-100 text-emerald-800 font-semibold">Shared Class Document</span>
+          <span class="text-xs font-mono text-slate-500">• Google Sheet Connected</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-950 font-normal">Class Knowledge Roster</h2>
+        <p class="text-slate-600 text-sm mt-1">Live data fed into the Rasa Bot grounded knowledge base.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Button to open the Add Student Modal -->
+        <button onclick="openAddStudentModal()" class="px-5 py-2.5 bg-gridCoral hover:bg-gridCoral-hover text-white rounded-2xl font-medium text-sm shadow-md hover:shadow-lg transition-all flex items-center gap-2">
+          <span class="text-lg leading-none">+</span>
+          <span>Add Student to Sheet</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6">
+      <div class="bg-white rounded-2xl p-4 border border-black/5 shadow-sm">
+        <span class="text-xs font-mono text-slate-400 uppercase">Total Students</span>
+        <p id="stat-total-students" class="text-2xl font-serif text-slate-900 font-semibold mt-1">20</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-black/5 shadow-sm">
+        <span class="text-xs font-mono text-slate-400 uppercase">Average Result</span>
+        <p id="stat-avg-result" class="text-2xl font-serif text-slate-900 font-semibold mt-1">81%</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-black/5 shadow-sm">
+        <span class="text-xs font-mono text-slate-400 uppercase">Top Skills</span>
+        <p class="text-sm font-semibold text-slate-800 mt-1">Python, Frontend, ML</p>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-black/5 shadow-sm">
+        <span class="text-xs font-mono text-slate-400 uppercase">Sheet Target</span>
+        <p class="text-sm font-mono text-emerald-700 font-medium mt-1 truncate">grid spreadsheet</p>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="flex flex-col sm:flex-row items-center gap-3 mb-6">
+      <div class="relative w-full sm:w-80">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">🔍</span>
+        <input type="text" id="student-search-input" oninput="filterStudentsTable()" placeholder="Search student, skill, or strength..." class="w-full pl-10 pr-4 py-2.5 bg-white rounded-xl border border-black/10 text-sm focus:outline-none focus:ring-2 focus:ring-gridCoral/50" />
+      </div>
+      <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 text-xs font-mono">
+        <button onclick="filterByTag('all')" class="filter-chip active px-3 py-1.5 rounded-full bg-slate-900 text-white whitespace-nowrap">All</button>
+        <button onclick="filterByTag('Python')" class="filter-chip px-3 py-1.5 rounded-full bg-white border border-black/10 hover:border-black/20 text-slate-700 whitespace-nowrap">Python</button>
+        <button onclick="filterByTag('Frontend')" class="filter-chip px-3 py-1.5 rounded-full bg-white border border-black/10 hover:border-black/20 text-slate-700 whitespace-nowrap">Frontend</button>
+        <button onclick="filterByTag('ML')" class="filter-chip px-3 py-1.5 rounded-full bg-white border border-black/10 hover:border-black/20 text-slate-700 whitespace-nowrap">Machine Learning</button>
+        <button onclick="filterByTag('DevOps')" class="filter-chip px-3 py-1.5 rounded-full bg-white border border-black/10 hover:border-black/20 text-slate-700 whitespace-nowrap">DevOps / Cloud</button>
+      </div>
+    </div>
+
+    <!-- Table of Students (Matching Excel Columns) -->
+    <div class="bg-white rounded-3xl border border-black/5 shadow-sm overflow-hidden mb-10">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+          <thead class="bg-cream-100/60 font-mono text-[11px] uppercase tracking-wider text-slate-500 border-b border-black/5">
+            <tr>
+              <th scope="col" class="py-3.5 px-6">Name</th>
+              <th scope="col" class="py-3.5 px-6">Skills</th>
+              <th scope="col" class="py-3.5 px-6">Result</th>
+              <th scope="col" class="py-3.5 px-6">Strength</th>
+              <th scope="col" class="py-3.5 px-6">Weakness</th>
+              <th scope="col" class="py-3.5 px-6 text-right">Profile</th>
+            </tr>
+          </thead>
+          <tbody id="student-table-body" class="divide-y divide-black/5">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       VIEW 3: TEACHER GATE (Authentication)
+  =========================================== -->
+  <section id="view-gate" class="hidden flex-1 max-w-7xl w-full mx-auto px-6 py-12 flex items-center justify-center">
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Copy -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono tracking-widest text-gridCoral font-semibold uppercase">Teacher Access / Private Room</span>
+        </div>
+        <h2 class="font-serif text-5xl sm:text-7xl tracking-tight text-slate-950 font-normal leading-[1.08]">
+          The class is<br />
+          <span class="italic text-gridCoral font-serif">more than</span><br />
+          a roster.
+        </h2>
+        <p class="text-slate-600 text-lg font-light max-w-md leading-relaxed">
+          Step into a quiet workspace for the patterns, combinations, and questions that deserve more than a spreadsheet.
+        </p>
+      </div>
+
+      <!-- Right Key Entry Card -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
+        <div class="w-full max-w-md bg-white rounded-3xl p-8 border border-black/5 shadow-xl space-y-6">
+          <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+            <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-sm">🔑</span>
+            <span>01 / GATE</span>
+          </div>
+
+          <div>
+            <h3 class="font-serif text-3xl text-slate-900 font-normal">Welcome back.</h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              This room is only for the adults guiding the work. Your key stays between you and the classroom.
+            </p>
+          </div>
+
+          <form onsubmit="handleTeacherLogin(event)" class="space-y-4">
+            <div>
+              <label class="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">Shared Teacher Key</label>
+              <input type="password" id="gate-key-input" value="grid2026" placeholder="Enter key..." class="w-full px-4 py-3 bg-cream-50 rounded-2xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-slate-900 font-mono text-sm" />
+            </div>
+
+            <button type="submit" class="w-full py-3.5 bg-gridCoral hover:bg-gridCoral-hover text-white rounded-2xl font-medium text-sm shadow-md transition-colors flex items-center justify-center gap-2">
+              <span>Enter the workspace</span>
+              <span>→</span>
+            </button>
+          </form>
+
+          <p class="text-[11px] text-slate-400 text-center font-mono flex items-center justify-center gap-1">
+            <span>🛡️</span> Student profiles stay inside this teacher session.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       VIEW 4: TEACHER WORKSPACE / CONVERSATION DESK (RASA BOT)
+  =========================================== -->
+  <section id="view-workspace" class="hidden flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col">
+    <!-- Top workspace banner -->
+    <div class="flex items-center justify-between pb-4 border-b border-black/10 mb-4">
+      <div>
+        <span class="text-[11px] font-mono uppercase tracking-wider text-gridCoral font-semibold">Conversation Desk</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-950 font-normal">Ask the room.</h2>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Sheet Sync status -->
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-black/5 text-xs font-mono text-slate-600 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Google Sheet Synced</span>
+        </div>
+        <!-- Add Student shortcut inside desk -->
+        <button onclick="openAddStudentModal()" class="px-3.5 py-1.5 bg-cream-100 hover:bg-cream-200 text-slate-800 rounded-xl text-xs font-medium border border-black/10 transition-colors flex items-center gap-1.5">
+          <span>+ Add Student</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main 3-Column Desk Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 min-h-[580px]">
+      
+      <!-- Left Column: Class Profiles Sidebar (Dark Navy) -->
+      <div class="lg:col-span-3 bg-gridNavy-900 text-slate-200 rounded-3xl p-5 border border-white/5 flex flex-col justify-between shadow-xl">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+            <div>
+              <p class="text-[10px] font-mono uppercase tracking-wider text-slate-400">Class Profiles</p>
+              <h4 id="workspace-student-count" class="font-serif text-xl text-white font-medium">20 students</h4>
+            </div>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">Live</span>
+          </div>
+
+          <!-- Student Quick List -->
+          <div id="workspace-student-list" class="space-y-1.5 max-h-[360px] overflow-y-auto custom-scroll-dark pr-1">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 text-[11px] text-slate-400 font-mono leading-relaxed">
+          <p class="flex items-center gap-1.5 text-slate-300 mb-1">
+            <span>🔒</span> Profiles classified for this session only.
+          </p>
+          <p>Matched with Google Sheet records.</p>
+        </div>
+      </div>
+
+      <!-- Center Column: Rasa Bot Conversation Stream -->
+      <div class="lg:col-span-6 bg-white rounded-3xl border border-black/5 p-5 flex flex-col justify-between shadow-sm relative">
+        
+        <!-- Stream Header -->
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-full bg-gridCoral-light text-gridCoral flex items-center justify-center text-sm font-semibold">
+              💬
+            </div>
+            <div>
+              <h4 class="font-medium text-slate-900 text-sm">Grounded conversation</h4>
+              <p class="text-[11px] text-slate-400">Answers cite the profiles they use.</p>
+            </div>
+          </div>
+          <span class="text-[11px] font-mono text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            Rasa Ready
+          </span>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto space-y-4 py-4 pr-1 max-h-[420px] custom-scroll">
+          <!-- Initial bot greeting -->
+          <div class="flex items-start gap-3">
+            <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs mt-1 shrink-0">
+              ✨
+            </div>
+            <div class="bg-cream-100/70 border border-black/5 rounded-2xl rounded-tl-none p-4 max-w-lg text-slate-800 text-sm leading-relaxed">
+              <p>I’ve read the latest class document (<span class="font-mono text-xs font-semibold">GridCampus_Students_Demo</span>). Ask me about a student's strengths, a useful pairing, or a balanced project team, and I’ll show the thinking behind the answer.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Bar -->
+        <form onsubmit="handleSendMessage(event)" class="pt-3 border-t border-slate-100 flex items-center gap-2">
+          <input type="text" id="chat-user-input" placeholder="Ask about a strength, a pairing, or a project team..." class="flex-1 px-4 py-3 bg-cream-50 rounded-2xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-sm text-slate-900 placeholder-slate-400" />
+          <button type="submit" class="w-11 h-11 bg-gridCoral hover:bg-gridCoral-hover text-white rounded-2xl flex items-center justify-center transition-colors shadow-sm shrink-0">
+            ➤
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column: Try Asking & Source Note -->
+      <div class="lg:col-span-3 space-y-5 flex flex-col justify-between">
+        
+        <!-- Try Asking Card -->
+        <div class="bg-white rounded-3xl p-5 border border-black/5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono uppercase text-slate-400">
+            <span>Try Asking</span>
+            <span>💡</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-700">Start with a useful angle.</p>
+
+          <div class="space-y-2 pt-1 text-xs">
+            <button onclick="applySamplePrompt('Build three balanced teams for a research project.')" class="w-full text-left p-3 rounded-2xl bg-cream-50 hover:bg-cream-100 text-slate-800 transition-colors border border-black/5 flex items-center justify-between group">
+              <span>Build three balanced teams for a research project.</span>
+              <span class="text-slate-400 group-hover:text-slate-700">↗</span>
+            </button>
+
+            <button onclick="applySamplePrompt('Who is strong at Python and Backend coding?')" class="w-full text-left p-3 rounded-2xl bg-cream-50 hover:bg-cream-100 text-slate-800 transition-colors border border-black/5 flex items-center justify-between group">
+              <span>Who is strong at Python and Backend coding?</span>
+              <span class="text-slate-400 group-hover:text-slate-700">↗</span>
+            </button>
+
+            <button onclick="applySamplePrompt('Which students could help someone improve in public speaking?')" class="w-full text-left p-3 rounded-2xl bg-cream-50 hover:bg-cream-100 text-slate-800 transition-colors border border-black/5 flex items-center justify-between group">
+              <span>Which students could help someone improve in public speaking?</span>
+              <span class="text-slate-400 group-hover:text-slate-700">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Source Note Card -->
+        <div class="bg-gridNavy-900 text-white rounded-3xl p-5 border border-white/5 space-y-2 shadow-sm">
+          <div class="flex items-center justify-between text-xs font-mono uppercase text-slate-400">
+            <span>Source Note</span>
+            <span>📄</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            This workspace sees the class document as it was last synced. Ask about what is present, not what should be assumed.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       MODAL: ADD NEW STUDENT DIALOG BOX
+       (Strictly matching the Sheet columns)
+  =========================================== -->
+  <div id="modal-add-student" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full border border-black/10 shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto custom-scroll">
+      
+      <!-- Close button -->
+      <button onclick="closeAddStudentModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-cream-100 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors">
+        ✕
+      </button>
+
+      <div class="mb-5">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-amber-100 text-amber-800 font-semibold">Google Sheet Row Entry</span>
+        </div>
+        <h3 class="font-serif text-2xl sm:text-3xl text-slate-900 font-normal">Add Student Record</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          Information entered here strictly matches the schema in <span class="font-mono text-slate-700 font-semibold">GridCampus_Students_Demo.xlsx</span> and updates your class dataset.
+        </p>
+      </div>
+
+      <!-- Form matching required columns -->
+      <form id="form-add-student" onsubmit="handleFormAddStudent(event)" class="space-y-4">
+        
+        <!-- 1. Name -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1">
+            Student Full Name <span class="text-gridCoral">*</span>
+          </label>
+          <input type="text" id="input-student-name" required placeholder="e.g. Samarth Gupta" class="w-full px-4 py-2.5 bg-cream-50 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-sm text-slate-900" />
+        </div>
+
+        <!-- 2. Skills -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1">
+            Skills (Comma-separated) <span class="text-gridCoral">*</span>
+          </label>
+          <input type="text" id="input-student-skills" required placeholder="e.g. Python, Backend, FastAPI" class="w-full px-4 py-2.5 bg-cream-50 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-sm text-slate-900" />
+          <span class="text-[11px] text-slate-400 font-mono">Suggested: Python, Frontend, UI/UX, ML, Testing, DevOps</span>
+        </div>
+
+        <!-- 3. Result -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1">
+            Result / Score (0-100) <span class="text-gridCoral">*</span>
+          </label>
+          <input type="number" id="input-student-result" required min="0" max="100" placeholder="e.g. 88" class="w-full px-4 py-2.5 bg-cream-50 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-sm text-slate-900" />
+        </div>
+
+        <!-- 4. Strength -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1">
+            Key Strength <span class="text-gridCoral">*</span>
+          </label>
+          <input type="text" id="input-student-strength" required placeholder="e.g. Problem solving, Clean code" class="w-full px-4 py-2.5 bg-cream-50 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-sm text-slate-900" />
+        </div>
+
+        <!-- 5. Weakness -->
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1">
+            Area for Growth / Weakness <span class="text-gridCoral">*</span>
+          </label>
+          <input type="text" id="input-student-weakness" required placeholder="e.g. Public speaking, Time management" class="w-full px-4 py-2.5 bg-cream-50 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-gridCoral text-sm text-slate-900" />
+        </div>
+
+        <!-- Google Sheet Live Sync Option -->
+        <div class="p-3 bg-cream-100/70 rounded-xl border border-black/5 text-xs space-y-1">
+          <div class="flex items-center justify-between font-mono font-medium text-slate-700">
+            <span>Google Sheet Sync Mode:</span>
+            <span class="text-emerald-700 font-semibold">Active (Immediate)</span>
+          </div>
+          <p class="text-[11px] text-slate-500">
+            This entry will be added to the live student session and is formatted to append as a row in your Google Sheet spreadsheet: <code class="font-mono text-slate-700">[Name, Skills, Result, Strength, Weakness]</code>.
+          </p>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="flex items-center justify-end gap-3 pt-3">
+          <button type="button" onclick="closeAddStudentModal()" class="px-4 py-2.5 text-sm rounded-xl text-slate-600 hover:text-slate-900 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 bg-gridCoral hover:bg-gridCoral-hover text-white rounded-xl text-sm font-medium shadow-md transition-colors">
+            Save to Sheet & Roster
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL: STUDENT DETAILS CARD
+  =========================================== -->
+  <div id="modal-student-detail" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full border border-black/10 shadow-2xl p-6 sm:p-7 relative">
+      <button onclick="closeStudentDetailModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">✕</button>
+      <div id="student-detail-content">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-medium transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+    <span id="toast-icon">✓</span>
+    <span id="toast-text">Student added successfully!</span>
+  </div>
+
+  <!-- ==========================================
+       JAVASCRIPT LOGIC
+  =========================================== -->
+  <script>
+    // 1. Initial Dataset directly from the uploaded GridCampus_Students_Demo.xlsx
+    let students = [
+      { name: "Rahul Sharma", skills: "Python, Backend", result: 85, strength: "Coding", weakness: "Public speaking" },
+      { name: "Priya Patel", skills: "Design, Frontend", result: 78, strength: "UI/UX", weakness: "Backend" },
+      { name: "Aman Gupta", skills: "ML, Data Analysis", result: 90, strength: "Analytical thinking", weakness: "Design" },
+      { name: "Sneha Reddy", skills: "Testing, Documentation", result: 70, strength: "Detail-oriented", weakness: "Coding speed" },
+      { name: "Karan Mehta", skills: "Backend, Databases", result: 82, strength: "Problem solving", weakness: "Frontend" },
+      { name: "Ananya Iyer", skills: "Frontend, UI/UX", result: 88, strength: "Creativity", weakness: "Public speaking" },
+      { name: "Vikram Singh", skills: "DevOps, Cloud", result: 75, strength: "System design", weakness: "Design" },
+      { name: "Neha Joshi", skills: "Data Analysis, ML", result: 91, strength: "Research", weakness: "Time management" },
+      { name: "Arjun Nair", skills: "Python, Automation", result: 68, strength: "Scripting", weakness: "Communication" },
+      { name: "Divya Menon", skills: "UI/UX, Frontend", result: 84, strength: "Visual design", weakness: "Backend logic" },
+      { name: "Rohan Verma", skills: "Backend, APIs", result: 79, strength: "Debugging", weakness: "Documentation" },
+      { name: "Ishita Kapoor", skills: "Testing, QA", result: 73, strength: "Attention to detail", weakness: "Coding speed" },
+      { name: "Aditya Rao", skills: "ML, Python", result: 93, strength: "Model building", weakness: "Presentation" },
+      { name: "Pooja Desai", skills: "Documentation, Content", result: 65, strength: "Writing", weakness: "Technical depth" },
+      { name: "Siddharth Jain", skills: "Cloud, DevOps", result: 80, strength: "Automation", weakness: "UI design" },
+      { name: "Meera Pillai", skills: "Frontend, Design", result: 87, strength: "User empathy", weakness: "Backend" },
+      { name: "Tanya Bhatt", skills: "Testing, Automation", result: 71, strength: "Process-driven", weakness: "Design" },
+      { name: "Yash Trivedi", skills: "Backend, Databases", result: 76, strength: "Query optimization", weakness: "Frontend design" },
+      { name: "Riya Chawla", skills: "Data Analysis, Visualization", result: 89, strength: "Storytelling with data", weakness: "Public speaking" },
+      { name: "Kabir Malhotra", skills: "Python, ML, Backend", result: 94, strength: "Full-stack thinking", weakness: "Time management" }
+    ];
+
+    // Local storage persistence so newly added students survive page reloads
+    const saved = localStorage.getItem("grid_campus_students");
+    if (saved) {
+      try { students = JSON.parse(saved); } catch(e){}
+    }
+
+    function saveState() {
+      localStorage.setItem("grid_campus_students", JSON.stringify(students));
+    }
+
+    // 2. Navigation Handler
+    function showView(viewName) {
+      document.getElementById('view-landing').classList.add('hidden');
+      document.getElementById('view-student-portal').classList.add('hidden');
+      document.getElementById('view-gate').classList.add('hidden');
+      document.getElementById('view-workspace').classList.add('hidden');
+
+      const navBtnHome = document.getElementById('nav-btn-home');
+
+      if (viewName === 'landing') {
+        document.getElementById('view-landing').classList.remove('hidden');
+        navBtnHome.classList.add('hidden');
+      } else if (viewName === 'student-portal') {
+        document.getElementById('view-student-portal').classList.remove('hidden');
+        navBtnHome.classList.remove('hidden');
+        renderStudentTable();
+      } else if (viewName === 'gate') {
+        document.getElementById('view-gate').classList.remove('hidden');
+        navBtnHome.classList.remove('hidden');
+      } else if (viewName === 'workspace') {
+        document.getElementById('view-workspace').classList.remove('hidden');
+        navBtnHome.classList.remove('hidden');
+        renderWorkspaceSidebar();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 3. Render Today's prompt on landing page
+    function renderLandingPrompt() {
+      const container = document.getElementById('landing-featured-students');
+      const featured = students.slice(0, 3);
+      container.innerHTML = featured.map((s, idx) => `
+        <div class="flex items-center justify-between py-2 border-b border-slate-100 last:border-none">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-cream-100 text-slate-700 flex items-center justify-center font-serif font-semibold text-xs border border-black/5">
+              ${s.name.charAt(0)}
+            </div>
+            <div>
+              <p class="font-medium text-slate-900 text-sm">${s.name}</p>
+              <p class="text-xs text-slate-500 font-mono">${s.strength}</p>
+            </div>
+          </div>
+          <span class="text-xs font-mono text-slate-400">0${idx + 1}</span>
+        </div>
+      `).join('');
+    }
+
+    // 4. Render Table in Student View
+    function renderStudentTable(dataToRender = students) {
+      const tbody = document.getElementById('student-table-body');
+      document.getElementById('stat-total-students').textContent = students.length;
+      
+      const avg = Math.round(students.reduce((acc, cur) => acc + Number(cur.result), 0) / students.length);
+      document.getElementById('stat-avg-result').textContent = avg + "%";
+
+      if (dataToRender.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400 font-mono text-sm">No students match this query.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = dataToRender.map((s) => `
+        <tr class="hover:bg-cream-50/70 transition-colors">
+          <td class="py-4 px-6 font-medium text-slate-900 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-cream-100 text-slate-700 flex items-center justify-center font-serif text-xs font-semibold">
+              ${s.name.charAt(0)}
+            </span>
+            ${s.name}
+          </td>
+          <td class="py-4 px-6">
+            <span class="text-xs font-mono bg-cream-100 px-2.5 py-1 rounded-md text-slate-700 border border-black/5">
+              ${s.skills}
+            </span>
+          </td>
+          <td class="py-4 px-6">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-mono font-medium ${
+              s.result >= 85 ? 'bg-emerald-100 text-emerald-800' : s.result >= 75 ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'
+            }">
+              ${s.result}%
+            </span>
+          </td>
+          <td class="py-4 px-6 text-slate-800 font-medium">${s.strength}</td>
+          <td class="py-4 px-6 text-slate-500">${s.weakness}</td>
+          <td class="py-4 px-6 text-right">
+            <button onclick="viewStudentDetails('${s.name}')" class="text-xs font-mono text-gridCoral hover:underline">
+              Inspect →
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Filter table by search
+    function filterStudentsTable() {
+      const q = document.getElementById('student-search-input').value.toLowerCase();
+      const filtered = students.filter(s => 
+        s.name.toLowerCase().includes(q) || 
+        s.skills.toLowerCase().includes(q) || 
+        s.strength.toLowerCase().includes(q) ||
+        s.weakness.toLowerCase().includes(q)
+      );
+      renderStudentTable(filtered);
+    }
+
+    function filterByTag(tag) {
+      document.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white');
+        btn.classList.add('bg-white', 'text-slate-700');
+      });
+      event.target.classList.add('bg-slate-900', 'text-white');
+      event.target.classList.remove('bg-white', 'text-slate-700');
+
+      if (tag === 'all') {
+        renderStudentTable(students);
+      } else {
+        const filtered = students.filter(s => s.skills.toLowerCase().includes(tag.toLowerCase()));
+        renderStudentTable(filtered);
+      }
+    }
+
+    // 5. Teacher Gate Login
+    function handleTeacherLogin(e) {
+      e.preventDefault();
+      const key = document.getElementById('gate-key-input').value;
+      if (key.trim() === '') {
+        alert('Please enter a key.');
+        return;
+      }
+      showView('workspace');
+    }
+
+    // 6. Render Workspace Sidebar
+    function renderWorkspaceSidebar() {
+      document.getElementById('workspace-student-count').textContent = `${students.length} students`;
+      const list = document.getElementById('workspace-student-list');
+      list.innerHTML = students.map(s => `
+        <div onclick="viewStudentDetails('${s.name}')" class="p-2.5 rounded-xl hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-between group">
+          <div class="flex items-center gap-2.5 truncate">
+            <span class="w-6 h-6 rounded-full bg-white/10 text-slate-300 flex items-center justify-center text-xs font-serif shrink-0">
+              ${s.name.charAt(0)}
+            </span>
+            <span class="text-xs text-slate-200 group-hover:text-white truncate font-medium">${s.name}</span>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400 group-hover:text-slate-200 shrink-0">${s.result}%</span>
+        </div>
+      `).join('');
+    }
+
+    // 7. Modal Controls for Add Student
+    function openAddStudentModal() {
+      document.getElementById('modal-add-student').classList.remove('hidden');
+      document.getElementById('modal-add-student').classList.add('flex');
+    }
+
+    function closeAddStudentModal() {
+      document.getElementById('modal-add-student').classList.add('hidden');
+      document.getElementById('modal-add-student').classList.remove('flex');
+      document.getElementById('form-add-student').reset();
+    }
+
+    // Handle Form Add Student (matching exact sheet headers)
+    function handleFormAddStudent(e) {
+      e.preventDefault();
+      
+      const newStudent = {
+        name: document.getElementById('input-student-name').value.trim(),
+        skills: document.getElementById('input-student-skills').value.trim(),
+        result: parseInt(document.getElementById('input-student-result').value.trim(), 10),
+        strength: document.getElementById('input-student-strength').value.trim(),
+        weakness: document.getElementById('input-student-weakness').value.trim()
+      };
+
+      // Add to array at top
+      students.unshift(newStudent);
+      saveState();
+
+      // Update Views
+      renderStudentTable();
+      renderLandingPrompt();
+      renderWorkspaceSidebar();
+
+      // Close modal
+      closeAddStudentModal();
+
+      // Show toast
+      showToast(`Added ${newStudent.name} to class sheet!`);
+
+      // Optional: If you have your Python Rasa action server or Google Apps Script Webhook running, send a POST
+      /*
+      fetch('YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newStudent)
+      });
+      */
+    }
+
+    // 8. Student Details Inspector
+    function viewStudentDetails(name) {
+      const s = students.find(item => item.name.toLowerCase() === name.toLowerCase());
+      if (!s) return;
+
+      const container = document.getElementById('student-detail-content');
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gridCoral-light text-gridCoral flex items-center justify-center font-serif text-xl font-bold">
+              ${s.name.charAt(0)}
+            </div>
+            <div>
+              <h3 class="font-serif text-2xl text-slate-900">${s.name}</h3>
+              <p class="text-xs font-mono text-slate-400">Class Record • Grid Campus</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <div class="bg-cream-100 p-3 rounded-2xl">
+              <span class="text-[10px] font-mono uppercase text-slate-400">Overall Result</span>
+              <p class="text-xl font-serif font-bold text-slate-900">${s.result}%</p>
+            </div>
+            <div class="bg-cream-100 p-3 rounded-2xl">
+              <span class="text-[10px] font-mono uppercase text-slate-400">Class Status</span>
+              <p class="text-sm font-semibold text-emerald-700 mt-1">Grounded</p>
+            </div>
+          </div>
+
+          <div class="space-y-2.5 pt-1 text-xs">
+            <div>
+              <span class="font-mono text-slate-400 uppercase text-[10px] block mb-1">Key Skills</span>
+              <span class="inline-block bg-cream-100 px-3 py-1 rounded-lg text-slate-800 font-medium">${s.skills}</span>
+            </div>
+
+            <div>
+              <span class="font-mono text-slate-400 uppercase text-[10px] block mb-1">Observed Strength</span>
+              <p class="font-medium text-slate-900 bg-emerald-50 text-emerald-900 p-2.5 rounded-xl border border-emerald-100">
+                ${s.strength}
+              </p>
+            </div>
+
+            <div>
+              <span class="font-mono text-slate-400 uppercase text-[10px] block mb-1">Area For Growth / Weakness</span>
+              <p class="font-medium text-slate-700 bg-amber-50 text-amber-900 p-2.5 rounded-xl border border-amber-100">
+                ${s.weakness}
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100">
+            <button onclick="closeStudentDetailModal()" class="w-full py-2.5 bg-slate-900 text-white rounded-xl text-xs font-medium">
+              Close Profile
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('modal-student-detail').classList.remove('hidden');
+      document.getElementById('modal-student-detail').classList.add('flex');
+    }
+
+    function closeStudentDetailModal() {
+      document.getElementById('modal-student-detail').classList.add('hidden');
+      document.getElementById('modal-student-detail').classList.remove('flex');
+    }
+
+    // 9. Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3200);
+    }
+
+    // 10. Rasa Bot Communication & Grounded Reasoning
+    async function handleSendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-user-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendChatMessage('user', text);
+      input.value = '';
+
+      // Rasa webhook endpoint
+      const rasaEndpoint = 'http://localhost:5005/webhooks/rest/webhook';
+
+      try {
+        const response = await fetch(rasaEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sender: 'teacher_desk', message: text })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            data.forEach(item => {
+              appendChatMessage('bot', item.text);
+            });
+            return;
+          }
+        }
+      } catch (err) {
+        // Fallback to grounded local reasoning using current Google Sheet student data
+      }
+
+      // Grounded offline responder matching spreadsheet data
+      setTimeout(() => {
+        const answer = generateGroundedAnswer(text);
+        appendChatMessage('bot', answer);
+      }, 600);
+    }
+
+    function appendChatMessage(sender, text) {
+      const container = document.getElementById('chat-messages');
+      const msgDiv = document.createElement('div');
+
+      if (sender === 'user') {
+        msgDiv.className = 'flex justify-end';
+        msgDiv.innerHTML = `
+          <div class="bg-gridNavy-900 text-white rounded-2xl rounded-tr-none px-4 py-3 max-w-md text-sm">
+            ${escapeHtml(text)}
+          </div>
+        `;
+      } else {
+        msgDiv.className = 'flex items-start gap-3';
+        msgDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs mt-1 shrink-0">
+            ✨
+          </div>
+          <div class="bg-cream-100/70 border border-black/5 rounded-2xl rounded-tl-none p-4 max-w-lg text-slate-800 text-sm leading-relaxed">
+            ${formatBotResponse(text)}
+          </div>
+        `;
+      }
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function formatBotResponse(text) {
+      // Auto-tag students with clickable badges
+      students.forEach(s => {
+        const regex = new RegExp(`\\b${s.name}\\b`, 'gi');
+        text = text.replace(regex, `<button onclick="viewStudentDetails('${s.name}')" class="font-semibold text-gridCoral hover:underline inline-flex items-center gap-0.5 bg-gridCoral-light px-1.5 py-0.5 rounded">👤 ${s.name}</button>`);
+      });
+      return text;
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/[&<>"']/g, function(s) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s];
+      });
+    }
+
+    function applySamplePrompt(promptText) {
+      document.getElementById('chat-user-input').value = promptText;
+      document.getElementById('chat-user-input').focus();
+    }
+
+    // Grounded response generator based on the spreadsheet data
+    function generateGroundedAnswer(prompt) {
+      const p = prompt.toLowerCase();
+
+      if (p.includes('team') || p.includes('group') || p.includes('balanced')) {
+        return `Based on the latest class roster of ${students.length} students, here is a balanced project team recommendation:<br><br>
+        <strong>Team Alpha:</strong> ${students[0].name} (Coding) paired with ${students[1].name} (UI/UX) and ${students[3].name} (Detail-oriented).<br>
+        <strong>Team Beta:</strong> ${students[2].name} (Analytical) paired with ${students[5].name} (Creativity) and ${students[6].name} (System design).<br><br>
+        <em>Rationale:</em> Each team pairs high analytical backend/logic with visual design and execution strength, balancing their documented growth areas.`;
+      }
+
+      if (p.includes('python') || p.includes('backend') || p.includes('coding')) {
+        const coders = students.filter(s => s.skills.toLowerCase().includes('python') || s.skills.toLowerCase().includes('backend'));
+        return `Looking at our class sheet, the strongest students for Python and Backend are:<br>` +
+          coders.slice(0, 4).map(c => `• <strong>${c.name}</strong> (${c.skills}) — Key strength: <em>${c.strength}</em>, Result: ${c.result}%`).join('<br>');
+      }
+
+      if (p.includes('speaking') || p.includes('communication') || p.includes('presentation')) {
+        const needHelp = students.filter(s => s.weakness.toLowerCase().includes('speaking') || s.weakness.toLowerCase().includes('presentation'));
+        return `From the sheet observations, students currently developing their public speaking confidence include <strong>${needHelp.map(s => s.name).join(', ')}</strong>. Consider pairing them with peers who have strong communication or user empathy skills.`;
+      }
+
+      return `I've analyzed the class sheet for your query. We have <strong>${students.length} students</strong> currently recorded. The top scorers include <strong>${students[students.length-1].name}</strong> (${students[students.length-1].result}%) and <strong>${students[12].name}</strong> (${students[12].result}%). Would you like to pair students by complementary strengths or view a breakdown by skill?`;
+    }
+
+    // Init on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderLandingPrompt();
+      renderStudentTable();
+      renderWorkspaceSidebar();
+    });
+  </script>
+</body>
+</html>

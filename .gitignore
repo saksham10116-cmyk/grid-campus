@@ -1,0 +1,12 @@
+# Sensitive Google API Keys & Secrets
+gsheet-credentials.json
+*.json
+
+# Virtual environment & Python cache
+venv/
+__pycache__/
+*.pyc
+
+# Rasa models & cache (too large for GitHub standard push)
+models/*.tar.gz
+.rasa/

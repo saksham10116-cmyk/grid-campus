@@ -1,0 +1,30 @@
+
+version: "3.1"
+
+intents:
+  - greet
+  - ask_team
+  - ask_student_info
+  - goodbye
+
+entities:
+  - student_name
+slots:
+  student_name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: student_name
+responses:
+  utter_greet:
+    - text: "Hi! I'm the Grid Campus assistant. Ask me to suggest a team or look up a student."
+  utter_goodbye:
+    - text: "Goodbye!"
+
+actions:
+  - action_get_team_suggestion
+  - action_get_student_info
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

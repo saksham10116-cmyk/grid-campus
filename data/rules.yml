@@ -1,0 +1,23 @@
+
+version: "3.1"
+
+rules:
+- rule: greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: team suggestion
+  steps:
+  - intent: ask_team
+  - action: action_get_team_suggestion
+
+- rule: student info
+  steps:
+  - intent: ask_student_info
+  - action: action_get_student_info

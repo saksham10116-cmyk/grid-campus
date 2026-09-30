@@ -1,0 +1,35 @@
+
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey there
+
+- intent: ask_team
+  examples: |
+    - suggest a team for me
+    - form a group
+    - can you make a balanced team
+    - who should I pair together
+    - give me a team suggestion
+    - create a team from students
+
+- intent: ask_student_info
+  examples: |
+    - tell me about [Rahul Sharma](student_name)
+    - what are the skills of [Priya Patel](student_name)
+    - show info for [Aman Gupta](student_name)
+    - give me details of [Sneha Reddy](student_name)
+    - tell me about [Aditya Rao](student_name)
+    - who is [Karan Mehta](student_name)
+    - info on [Ananya Iyer](student_name)
+    - tell me about [Kabir Malhotra](student_name)
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
